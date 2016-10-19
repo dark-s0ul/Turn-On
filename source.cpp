@@ -27,27 +27,27 @@ char check() {
 }
 
 #define range(value, min, max) (min <= value && value <= max)
-void move(int x, int y) {
+void reverse(int x, int y) {
 	if (!range(x, 0, table_size - 1) || !range(y, 0, table_size - 1)) { return; }
 	table[x][y] = table[x][y] == 0 ? 1 : 0;
 }
 
 void read() {
-	string _move;
+	string move;
 	printf("Moves: %u\nPlease enter your move: ", moves);
-	getline(cin, _move);
+	getline(cin, move);
 
-	if (_move.length() == 0) return;
+	if (move.length() == 0) return;
 
-	if (_move[0] == '~') {
-		int size = atoi(_move.c_str() + 1);
+	if (move[0] == '~') {
+		int size = atoi(move.c_str() + 1);
 		if (range(size, 1, 9)) { table_size = size; }
 
 		reset();
 		return;
 	}
 
-	if (_move == "!") {
+	if (move == "!") {
 		for (int i = 0; i < table_size; i++) {
 			for (int j = 0; j < table_size; j++) {
 				table[i][j] = table[i][j] == 0 ? 1 : 0;
@@ -56,27 +56,27 @@ void read() {
 		return;
 	}
 
-	if (_move.length() != 2) { return; }
+	if (move.length() != 2) { return; }
 
-	int x = _move[0] - '1';
-	int y = _move[1] - '1';
+	int x = move[0] - '1';
+	int y = move[1] - 'a';
 
 	if (!range(x, 0, table_size - 1) || !range(y, 0, table_size - 1)) { return; }
 
 	moves++;
 
-	move(x, y);
-	move(x - 1, y);
-	move(x + 1, y);
-	move(x, y - 1);
-	move(x, y + 1);
+	reverse(x, y);
+	reverse(x - 1, y);
+	reverse(x + 1, y);
+	reverse(x, y - 1);
+	reverse(x, y + 1);
 }
 
 void draw() {
 	system("cls");
 	printf("   ");
 	for (int i = 1; i <= table_size; i++) {
-		printf("  %i ", i);
+		printf("  %c ", i + 96);
 	}
 	printf("\n");
 	for (int i = 0; i < table_size; i++) {
