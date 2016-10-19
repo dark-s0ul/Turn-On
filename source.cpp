@@ -46,7 +46,7 @@ void reverse(int x, int y) {
 
 void help() {
 	system("cls");
-	printf("supported commands:\n'h' - show help\n'~' - reset table\n'~1-9' - resize table\n'!' - reverse table\n'e' - exit\n");
+	printf("commands:\n'h' - show help\n'~' - reset table\n'~1-9' - resize table\n'!' - reverse table\n'e' - exit\n");
 	system("pause");
 }
 
