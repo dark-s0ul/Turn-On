@@ -32,44 +32,10 @@ void reverse(int x, int y) {
 	table[x][y] = table[x][y] == 0 ? 1 : 0;
 }
 
-void read() {
-	string move;
-	printf("Moves: %u\nPlease enter your move: ", moves);
-	getline(cin, move);
-
-	if (move.length() == 0) return;
-
-	if (move[0] == '~') {
-		int size = atoi(move.c_str() + 1);
-		if (range(size, 1, 9)) { table_size = size; }
-
-		reset();
-		return;
-	}
-
-	if (move == "!") {
-		for (int i = 0; i < table_size; i++) {
-			for (int j = 0; j < table_size; j++) {
-				table[i][j] = table[i][j] == 0 ? 1 : 0;
-			}
-		}
-		return;
-	}
-
-	if (move.length() != 2) { return; }
-
-	int x = move[0] - '1';
-	int y = move[1] - 'a';
-
-	if (!range(x, 0, table_size - 1) || !range(y, 0, table_size - 1)) { return; }
-
-	moves++;
-
-	reverse(x, y);
-	reverse(x - 1, y);
-	reverse(x + 1, y);
-	reverse(x, y - 1);
-	reverse(x, y + 1);
+void help() {
+	system("cls");
+	printf("supported commands:\n'h' - show help\n'~' - reset table\n'~1-9' - resize table\n'!' - reverse table\n");
+	system("pause");
 }
 
 void draw() {
@@ -98,8 +64,54 @@ void draw() {
 	printf("\n");
 }
 
+void read() {
+	string move;
+	
+	printf("Moves: %u\nPlease enter your move: ", moves);
+	getline(cin, move);
+
+	if (move.length() == 0) return;
+
+	if (move[0] == '~') {
+		int size = atoi(move.c_str() + 1);
+		if (range(size, 1, 9)) { table_size = size; }
+
+		reset();
+		return;
+	}
+
+	if (move == "!") {
+		for (int i = 0; i < table_size; i++) {
+			for (int j = 0; j < table_size; j++) {
+				table[i][j] = table[i][j] == 0 ? 1 : 0;
+			}
+		}
+		return;
+	}
+	if (move == "h") {
+		help();
+		return;
+	}
+
+	if (move.length() != 2) { return; }
+
+	int x = move[0] - '1';
+	int y = move[1] - 'a';
+
+	if (!range(x, 0, table_size - 1) || !range(y, 0, table_size - 1)) { return; }
+
+	moves++;
+
+	reverse(x, y);
+	reverse(x - 1, y);
+	reverse(x + 1, y);
+	reverse(x, y - 1);
+	reverse(x, y + 1);
+}
+
 int main() {
 	table_size = 5;
+	help();
 
 	while (true) {
 		reset();
