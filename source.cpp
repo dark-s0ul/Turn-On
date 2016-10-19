@@ -7,14 +7,26 @@ char **table;
 unsigned moves;
 unsigned table_size = 0;
 
-void reset() {
-	moves = 0;
-
+void init() {
 	table = new char*[table_size];
 	for (int i = 0; i < table_size; i++) {
 		table[i] = new char[table_size];
+	}
+}
+
+void reset() {
+	moves = 0;
+
+	for (int i = 0; i < table_size; i++) {
 		memset(table[i], 0, table_size);
 	}
+}
+
+void clear() {
+	for (int i = 0; i < table_size; i++) {
+		delete [] table[i];
+	}
+	delete[] table;
 }
 
 char check() {
@@ -34,7 +46,7 @@ void reverse(int x, int y) {
 
 void help() {
 	system("cls");
-	printf("supported commands:\n'h' - show help\n'~' - reset table\n'~1-9' - resize table\n'!' - reverse table\n");
+	printf("supported commands:\n'h' - show help\n'~' - reset table\n'~1-9' - resize table\n'!' - reverse table\n'e' - exit\n");
 	system("pause");
 }
 
@@ -92,6 +104,10 @@ void read() {
 		help();
 		return;
 	}
+	if (move == "e") {
+		clear();
+		exit(0);
+	}
 
 	if (move.length() != 2) { return; }
 
@@ -111,6 +127,7 @@ void read() {
 
 int main() {
 	table_size = 5;
+	init();
 	help();
 
 	while (true) {
