@@ -46,7 +46,7 @@ void reverse(int x, int y) {
 
 void help() {
 	system("cls");
-	printf("help/commands:\n'h' - show help\n'~' - reset table\n'~1-9' - resize table\n'!' - reverse table\n'e' - exit\n");
+	printf("'h' - show help\n'~' - reset table\n'~1-9' - resize table\n'!' - reverse table\n'e' - exit\n");
 	system("pause");
 }
 
@@ -77,22 +77,22 @@ void draw() {
 }
 
 void read() {
-	string move;
+	string input;
 	
 	printf("Moves: %u\nPlease enter your move: ", moves);
-	getline(cin, move);
+	getline(cin, input);
 
-	if (move.length() == 0) return;
+	if (input.length() == 0) return;
 
-	if (move[0] == '~') {
-		int size = atoi(move.c_str() + 1);
+	if (input[0] == '~') {
+		int size = atoi(input.c_str() + 1);
 		if (range(size, 1, 9)) { table_size = size; }
 
 		reset();
 		return;
 	}
 
-	if (move == "!") {
+	if (input == "!") {
 		for (int i = 0; i < table_size; i++) {
 			for (int j = 0; j < table_size; j++) {
 				table[i][j] = table[i][j] == 0 ? 1 : 0;
@@ -100,19 +100,19 @@ void read() {
 		}
 		return;
 	}
-	if (move == "h") {
+	if (input == "h") {
 		help();
 		return;
 	}
-	if (move == "e") {
+	if (input == "e") {
 		clear();
 		exit(0);
 	}
 
-	if (move.length() != 2) { return; }
+	if (input.length() != 2) { return; }
 
-	int x = move[0] - '1';
-	int y = move[1] - 'a';
+	int x = input[0] - '1';
+	int y = input[1] - 'a';
 
 	if (!range(x, 0, table_size - 1) || !range(y, 0, table_size - 1)) { return; }
 
